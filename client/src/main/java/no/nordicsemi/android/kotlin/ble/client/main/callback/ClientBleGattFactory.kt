@@ -158,7 +158,12 @@ internal object ClientBleGattFactory {
                 options.phy?.value ?: 0
             )
         } else {
-            device.connectGatt(context, options.autoConnect, gattCallback)
+            device.connectGatt(
+                context,
+                options.autoConnect,
+                gattCallback,
+                BluetoothDevice.TRANSPORT_LE
+            )
         }
 
         return NativeClientBleAPI(
