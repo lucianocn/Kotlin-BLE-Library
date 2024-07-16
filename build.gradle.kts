@@ -70,3 +70,7 @@ tasks.dokkaHtmlMultiModule.configure {
 tasks.withType<Sign>().configureEach {
     isEnabled = false
 }
+
+tasks.named<Sign>("signLibraryPublication").configure {
+    isEnabled = false
+}
