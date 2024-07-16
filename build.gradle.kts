@@ -48,6 +48,7 @@ plugins {
     alias(libs.plugins.nordic.feature) apply false
     alias(libs.plugins.nordic.nexus.android) apply false
     alias(libs.plugins.nordic.kotlin.android) apply false
+    signing
 }
 
 val skip = listOf(
@@ -64,4 +65,8 @@ subprojects {
 
 tasks.dokkaHtmlMultiModule.configure {
     outputDirectory.set(rootDir.resolve("docs"))
+}
+
+tasks.withType<Sign>().configureEach {
+    isEnabled = false
 }
