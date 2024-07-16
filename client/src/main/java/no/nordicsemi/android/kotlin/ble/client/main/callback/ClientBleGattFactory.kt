@@ -157,13 +157,15 @@ internal object ClientBleGattFactory {
                 BluetoothDevice.TRANSPORT_LE,
                 options.phy?.value ?: 0
             )
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             device.connectGatt(
                 context,
                 options.autoConnect,
                 gattCallback,
                 BluetoothDevice.TRANSPORT_LE
             )
+        } else {
+            device.connectGatt(context, options.autoConnect, gattCallback)
         }
 
         return NativeClientBleAPI(
