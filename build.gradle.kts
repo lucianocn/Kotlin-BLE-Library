@@ -51,6 +51,10 @@ plugins {
     signing
 }
 
+tasks.withType<Sign>().configureEach {
+    isEnabled = false
+}
+
 val skip = listOf(
     "uiscanner",
     "app-client",
@@ -61,16 +65,18 @@ subprojects {
     if (name !in skip) {
         apply(plugin = "org.jetbrains.dokka")
     }
+
+    tasks.withType<Sign>().configureEach {
+        isEnabled = false
+    }
+
+    afterEvaluate {
+        tasks.matching { it.name.startsWith("sign") }.configureEach {
+            enabled = false
+        }
+    }
 }
 
 tasks.dokkaHtmlMultiModule.configure {
     outputDirectory.set(rootDir.resolve("docs"))
-}
-
-tasks.withType<Sign>().configureEach {
-    isEnabled = false
-}
-
-tasks.named<Sign>("signLibraryPublication").configure {
-    isEnabled = false
 }
